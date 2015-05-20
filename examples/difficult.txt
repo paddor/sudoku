@@ -1,0 +1,11 @@
+# Shamelessly taken from http://dingo.sbs.arizona.edu/~sandiway/sudoku/examples.html
+
+- - - 6 - - 4 - -
+7 - - - - 3 6 - -
+- - - - 9 1 - 8 -
+- - - - - - - - -
+- 5 - 1 8 - - - 3
+- - - 3 - 6 - 4 5
+- 4 - 2 - - - 6 -
+9 - 3 - - - - - -
+- 2 - - - - 1 - -
