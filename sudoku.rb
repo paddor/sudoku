@@ -135,7 +135,7 @@ module Sudoku
 
   # A cell basically only consists of its value (if set). But it also knows if
   # that value was a given (predefined) one or not, and has a reference to the
-  # board to be able to calculate its {#choices} and {#related_cell_groups}.
+  # board to be able to calculate its {#choices} and {#related_cells}.
   class Cell
     attr_accessor :value
     def initialize(board)
@@ -163,9 +163,7 @@ module Sudoku
     # value of the cell, if any, is always accepted.
     def accepts_value?(value)
       return true if value == @value
-      related_cell_groups.none? do |cg|
-        cg.has?(value)
-      end
+      !related_cells.has?(value)
     end
 
     # @return [Array<Integer>] currently possible values for this cell
@@ -176,6 +174,12 @@ module Sudoku
     # @return [Array<CellGroup>] related cell groups: row, column, box
     def related_cell_groups
       [ @board.row_of(self), @board.column_of(self), @board.box_of(self) ]
+    end
+
+    # @return [CellGroup] all related cells (row, column, box), cached
+    def related_cells
+      @related_cells ||= CellGroup.new(
+        related_cell_groups.map {|cg| cg.cells}.flatten.uniq)
     end
   end
 
