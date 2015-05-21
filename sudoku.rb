@@ -289,13 +289,7 @@ module Sudoku
 
     # @return [Boolean] whether the set values are possible
     def valid?
-      @board.cells.each do |cell|
-        value = cell.value or next # skip empty cells
-        @board.row_of(cell).once?(value) &&
-        @board.column_of(cell).once?(value) &&
-        @board.box_of(cell).once?(value) or return false
-      end
-      return true
+      @board.cells.reject(&:empty?).all? {|c| c.related_cells.once?(c.value) }
     end
   end
 
