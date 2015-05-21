@@ -118,9 +118,11 @@ module Sudoku
 
     def index_boxes
       # group cells by a unique index for each box
+      box_size = Math.sqrt(@size)
       grouped_cells = @cells.flatten.group_by.with_index do |cell,index|
-        box_y_index = ((index + 1).to_f / @size).ceil
-        box_x_index = (((index + 1) % @size).to_f / Math.sqrt(@size)).ceil
+        index += 1
+        box_y_index = (index + (index % box_size)) / box_size
+        box_x_index = (index + (index % @size)) / @size
         [ box_y_index, box_x_index ]
       end.values
 
