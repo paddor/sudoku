@@ -197,7 +197,7 @@ module Sudoku
     # @param value [Integer]
     # @return [Boolean] whether the value given is contained in this group
     def has?(value)
-      @cells.any? { |c| c.value == value }
+      @cells.map(&:value).include? value
     end
 
     # @param value [Integer]
