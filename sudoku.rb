@@ -255,6 +255,7 @@ module Sudoku
         @index -= 1
 #        sleep 0.2
       end
+      return true
     end
 
     def try_next_choice
