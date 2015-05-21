@@ -228,6 +228,7 @@ module Sudoku
     end
 
     # @abstract
+    # @return [Boolean] whether another step is needed
     def step
       raise NotImplementedError
     end
