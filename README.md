@@ -14,7 +14,7 @@ Example
 -------
 
 ```
-$ ./sudoku.rb < examples/easy.txt
+$ bin/sudoku < examples/easy.txt
 Board read:
 _ 7 6 _ _ _ 1 _ _
 _ _ 4 _ 3 9 _ _ _
