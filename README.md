@@ -1,3 +1,5 @@
+[![Inline docs](http://inch-ci.org/github/paddor/sudoku.svg?branch=master)](http://inch-ci.org/github/paddor/sudoku)
+
 Sudoku
 ======
 
