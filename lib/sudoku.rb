@@ -309,7 +309,7 @@ module Sudoku
 
   # Used to read a board and create a game.
   class Reader
-    # @return [Game] game wth initialized board and given values set
+    # @return [Game] game with initialized board and given values set
     attr_reader :game
 
     # Instantiates a {Game} along with its {Board} of the proper size and sets
