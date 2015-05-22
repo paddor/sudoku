@@ -9,11 +9,16 @@ module Sudoku
   # be set by the {Reader}. Solver and verifier
   # are created lazily and can be overridden using their setters.
   class Game
+    # @return [Board] the board to solve
     attr_accessor :board
     attr_writer :solver, :verifier
+
+    # @return [Solver] the solver used to solve this board, cached
     def solver
       @solver ||= BruteForceSolver.new(board)
     end
+
+    # @return [Solver] the verifier used to verify this board, cached
     def verifier
       @verifier ||= Verifier.new(board)
     end
@@ -62,16 +67,19 @@ module Sudoku
       cells.select { |c| c.empty? }
     end
 
+    # Looks up the respective row.
     # @return [CellGroup] this cell's containing row
     def row_of(cell)
       @rows_by_cell[cell]
     end
 
+    # Looks up the respective column.
     # @return [CellGroup] this cell's containing column
     def column_of(cell)
       @columns_by_cell[cell]
     end
 
+    # Looks up the respective box.
     # @return [CellGroup] this cell's containing box
     def box_of(cell)
       @boxes_by_cell[cell]
@@ -139,7 +147,9 @@ module Sudoku
   # that value was a given (predefined) one or not, and has a reference to the
   # board to be able to calculate its {#choices} and {#related_cells}.
   class Cell
+    # @return [Integer] this cell's value
     attr_accessor :value
+
     def initialize(board)
       @board = board
       @value = nil
@@ -208,6 +218,7 @@ module Sudoku
     end
   end
 
+  # A Solver consists of the board to solve.
   # @abstract Subclass and override {#step} to implement a solver.
   class Solver
     # @return [Board] the board to solve
@@ -258,6 +269,9 @@ module Sudoku
       return true
     end
 
+    # Tries the next choice ({Cell#choices}) for the current cell.
+    # @return [false] if no choices left
+    # @return [true] if choice has been made
     def try_next_choice
       cell = @cells[@index]
       choices = cell.choices
@@ -297,17 +311,17 @@ module Sudoku
 
   # Used to read a board and create a game.
   class Reader
+    # @return [Game] game wth initialized board and given values set
+    attr_reader :game
+
+    # Instantiates a {Game} along with its {Board} of the proper size and sets
+    # all the given values on the board.
     # @param input [IO] where the board should be read from
     def initialize(input)
       @input = input
-    end
-
-    # @return [Game] game wth initialized board and given values set
-    def game
       @game = Game.new
       @game.board = Board.new(rows.size)
       set_given_values
-      return @game
     end
 
     # @return [Array<Array<Integer, nil>] all rows read and their values,
