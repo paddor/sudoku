@@ -322,7 +322,7 @@ module Sudoku
       set_given_values
     end
 
-    # @return [Array<Array<Integer, nil>] all rows read and their values,
+    # @return [Array<Array<Integer, nil>>] all rows read and their values,
     #   empty cells' values are nil
     def rows
       @rows ||= # cache
