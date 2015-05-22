@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # My attempt to write a Sudoku solver with some heuristics.
 #
 # @author Patrik Wenger <paddor@gmail.com>
@@ -363,18 +361,4 @@ module Sudoku
       end
     end
   end
-end
-
-if $0 == __FILE__
-  game = Sudoku::Reader.new($stdin).game # read board from STDIN
-  puts "Board read:\n#{game.board}"
-  puts
-
-  puts "Solving..."
-  game.solver.solve
-
-  puts "Board with solution:\n#{game.board}"
-  puts
-  puts "Solution is #{"NOT " if !game.verifier.valid?}valid."
-  puts "Solution is #{"NOT " if !game.board.complete?}complete."
 end
